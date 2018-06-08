@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Xem Chi Tiet";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title">Vertical Form</div>
+
+                <div class="panel-options">
+                    <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                    <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="">
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Text field</label>
+                            <input class="form-control" placeholder="Text field" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Password field</label>
+                            <input class="form-control" placeholder="Password" type="password" value="mypassword">
+                        </div>
+                        <div class="form-group">
+                            <label>Textarea</label>
+                            <textarea class="form-control" placeholder="Textarea" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Readonly</label>
+                            <span class="form-control">Read only text</span>
+                        </div>
+                        <span class="form-group">
+                            <label>File input</label>
+                            <span>
+                                <input type="file" class="btn btn-default" id="exampleInputFile1">
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="panel-body">
+                                <textarea id="ckeditor_full"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ảnh</label>
+                            <br>
+                            <label>
+                                <input type="file" class="form-control" name="img" id="file" required />
+                            </label>
+                            <div id="status_upload"></div>
+                            <div class="preview">
+                                <div class="imgpreview">
+                                    <img id="previewing" src="" />
+                                </div>
+                                <div class="message" style="color: #000;"></div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div>
+                        <div class="btn btn-primary">
+                            <i class="fa fa-save"></i>
+                            Submit
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        var message = document.getElementsByClassName("message")[0];
+        var file_upload = document.getElementById('file');
+        // hiển thị ảnh nếu validation thành công
+        file_upload.addEventListener('change', function(e) {
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg"];
+            if (!((imagefile == match[0]) || (imagefile == match[1]) ||
+                    (imagefile == match[2]))) {
+                message.innerHTML = "File phải có định dạng jpeg, jpg and png";
+                document.getElementById('previewing').style.display = "none";
+                document.getElementById('file').value = "";
+                return false;
+            } else {
+                message.innerHTML = "Chấp nhận";
+                var reader = new FileReader();
+                reader.onload = function imageIsLoaded(e) {
+                    var previewing = document.getElementById('previewing');
+                    previewing.style.display = "block";
+                    previewing.setAttribute('src', e.target.result);
+                    previewing.setAttribute('width', '320px');
+                    previewing.setAttribute('height', '230px');
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+</script>

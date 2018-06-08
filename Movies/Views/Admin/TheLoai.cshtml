@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Movies.Models.theloai>
+@{
+    ViewBag.Title = "TheLoai";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<div class="content-box-large" style="min-height: 500px;">
+    <div class="panel-heading">
+        <div class="panel-title">Danh Sách Thể Loại</div>
+        <div>
+            <a href="" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="float: right;"><i class="glyphicon glyphicon-plus"></i> </a>
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="panel-body">
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Thể Loại</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idTL)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenTL)
+                        </td>
+                        <td><a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> </a></td>
+                        <td><a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> </a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

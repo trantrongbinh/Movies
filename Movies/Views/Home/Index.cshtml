@@ -1,0 +1,9 @@
+﻿
+@{
+    Layout = "~/Views/Layout/NguoiDungLayout.cshtml";
+    ViewBag.Title = "Trang chủ";
+}
+
+@section Content{
+    @Html.Action("TrangChuPartial", "Home")
+}

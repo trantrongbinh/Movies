@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyMovieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="phim">
+    <Key>
+      <PropertyRef Name="idPhim" />
+    </Key>
+    <Property Name="idPhim" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NguoiDang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgayChieu" Type="DateTime" Precision="0" />
+    <Property Name="DanhGia" Type="Double" />
+    <Property Name="idTL" Type="Int32" Nullable="false" />
+    <Property Name="idQG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="quocgia" Relationship="Self.FK_phim_quocgia" FromRole="phim" ToRole="quocgia" />
+    <NavigationProperty Name="theloai" Relationship="Self.FK_phim_theloai" FromRole="phim" ToRole="theloai" />
+  </EntityType>
+  <EntityType Name="quocgia">
+    <Key>
+      <PropertyRef Name="idQG" />
+    </Key>
+    <Property Name="idQG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenQG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="phims" Relationship="Self.FK_phim_quocgia" FromRole="quocgia" ToRole="phim" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="theloai">
+    <Key>
+      <PropertyRef Name="idTL" />
+    </Key>
+    <Property Name="idTL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="phims" Relationship="Self.FK_phim_theloai" FromRole="theloai" ToRole="phim" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_phim_quocgia">
+    <End Role="quocgia" Type="Self.quocgia" Multiplicity="1" />
+    <End Role="phim" Type="Self.phim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="quocgia">
+        <PropertyRef Name="idQG" />
+      </Principal>
+      <Dependent Role="phim">
+        <PropertyRef Name="idQG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_phim_theloai">
+    <End Role="theloai" Type="Self.theloai" Multiplicity="1" />
+    <End Role="phim" Type="Self.phim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="theloai">
+        <PropertyRef Name="idTL" />
+      </Principal>
+      <Dependent Role="phim">
+        <PropertyRef Name="idTL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyMovieEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="phims" EntityType="Self.phim" />
+    <EntitySet Name="quocgias" EntityType="Self.quocgia" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="theloais" EntityType="Self.theloai" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_phim_quocgia" Association="Self.FK_phim_quocgia">
+      <End Role="quocgia" EntitySet="quocgias" />
+      <End Role="phim" EntitySet="phims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_phim_theloai" Association="Self.FK_phim_theloai">
+      <End Role="theloai" EntitySet="theloais" />
+      <End Role="phim" EntitySet="phims" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
