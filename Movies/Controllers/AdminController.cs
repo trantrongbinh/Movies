@@ -27,10 +27,31 @@ namespace Movies.Controllers
             return View(db.theloais.ToList());
         }
 
+        //Them theloai
+        [HttpGet]
+        public PartialViewResult TheLoaiPartial()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult TheLoaiPartial(theloai tl)
+        {
+            //Thêm vào cơ sở dữ liệu
+            if (ModelState.IsValid)
+            {
+                db.theloais.Add(tl);
+                db.SaveChanges();
+            }
+
+            return PartialView();
+        }
+
         //GET ThemTL
         public ViewResult ThemTL()
         {
             return View();
         }
+
     }
 }
